@@ -8,12 +8,19 @@ import './index.css'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
 
-    <Auth0Provider domain="dev-qbbjcdcz3vqlbjmj.us.auth0.com"
+    {/* <Auth0Provider domain="dev-qbbjcdcz3vqlbjmj.us.auth0.com"
     clientId="PqSf2yMD1ivBhmaEplBaMjjjBXBbXC0d"
     authorizationParams={{
       redirect_uri: window.location.origin
-    }}>
- 
+    }}> */}
+
+    <Auth0Provider
+    domain="dev-ae1mu4848krwdmxu.us.auth0.com"
+    clientId="hY3edLwAIaap8a1yrNHxwjEPKsIEXxv5"
+    authorizationParams={{
+      redirect_uri: window.location.origin
+    }}
+> 
     <App />
    
     </Auth0Provider>

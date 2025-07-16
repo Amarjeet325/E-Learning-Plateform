@@ -36,6 +36,33 @@ app.get('/',(req,res)=>{
 });
 
 
+app.post('/api/chat', async (req, res) => {
+  const { message } = req.body;
+
+  if (!message || typeof message !== 'string') {
+    return res.status(400).json({ error: 'Invalid input' });
+  }
+
+  try {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.YOUR_API_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: message }] }],
+      }),
+    });
+
+    const data = await response.json();
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, no response.";
+
+    res.json({ reply });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to connect to Gemini API' });
+  }
+});
+
+
 //authorizarion for each action
 app.use('/api/authorize',authorizRouter); 
 
